@@ -1,6 +1,6 @@
-# Focuss
+# Focuss (Alpha)
 
-Focus by disabling internet in Pomodoro intervals.
+Focus by disabling internet in Pomodoro intervals. Currently, only Mac OS X is supported, code for Windows and Linux support will be coming within two weeks; do not have access to those OSes at the time of this writing.
 
 
 Welcome Screen             |  Active Session
