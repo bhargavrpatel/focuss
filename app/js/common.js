@@ -5,7 +5,7 @@
 	Functions which are imported in HTML file(s)
 
 */
-
+var cmd=require('node-cmd');
 const {ipcRenderer} = require('electron');
 
 function closeApp() {
@@ -22,4 +22,14 @@ function secToMiliseconds(seconds) {
 
 function minToMiliseconds(minutes) {
 	return secToMiliseconds(minutes * 60);
+}
+
+function sessionEndNotification() {
+	var notif = new window.Notification('Session Completed', {
+	  body: `Your ${sessionDuration} minutes session completed. Congrats!`
+	});
+
+	notif.onclick = function () {
+	  ipcRenderer.send('state-messages', 'focus')
+	}
 }

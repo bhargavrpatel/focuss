@@ -54,16 +54,6 @@
 
 			minutes.innerHTML = sessionDuration;
 
-			function sessionEndNotification() {
-				var notif = new window.Notification('Session Completed', {
-				  body: `Your ${sessionDuration} minutes session completed. Congrats!`
-				});
-
-				notif.onclick = function () {
-				  ipcRenderer.send('state-messages', 'focus')
-				}
-			}
-
 			function decrementTime() {
 				timeLeft -= 1;
 				console.log(`Time left in session: ${timeLeft}.`)
