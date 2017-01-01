@@ -79,6 +79,7 @@
 				if (sessionState === 'false') {
 					// Start a session.
 
+					disableInternet();
 					info.style.opacity = 1;
 					tagline.innerHTML = 'End';
 					btn.dataset.started = "true";
@@ -93,6 +94,7 @@
 				} else {
 					// End a session
 
+					enableInternet();
 					info.style.opacity = 0;
 					tagline.innerHTML = 'Start';
 					btn.dataset.started = "false";
