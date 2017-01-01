@@ -1,0 +1,20 @@
+{
+  "name": "focuss",
+  "version": "1.0.0",
+  "description": "Focus by disabling internet in Pomodoro intervals. Currently, only Mac OS X is supported, code for Windows and Linux support will be coming within two weeks; do not have access to those OSes at the time of this writing.",
+  "main": "main.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bhargavrpatel/focuss.git"
+  },
+  "author": "Bhargav R. Patel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bhargavrpatel/focuss/issues"
+  },
+  "dependencies": {
+    "node-cmd": "^1.2.0"
+  },
+  "homepage": "https://github.com/bhargavrpatel/focuss#readme"
+}

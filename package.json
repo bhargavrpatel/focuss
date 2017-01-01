@@ -1,17 +1,26 @@
 {
   "name": "focuss",
-  "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
-  "scripts": {
-    "start": "echo \"Starting Electron application...\" && ./node_modules/.bin/electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "version": "0.0.0",
+  "description": "Focus by disabling internet in Pomodoro intervals. Currently, only Mac OS X is supported, code for Windows and Linux support will be coming within two weeks; do not have access to those OSes at the time of this writing.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bhargavrpatel/focuss.git"
   },
-  "keywords": [],
-  "author": "",
+  "scripts": {
+    "start": "echo \"Starting Electron application...\" && ./node_modules/.bin/electron app",
+    "buildMac": "echo \"Compiling to a Mac application...\" && ./node_modules/.bin/electron-packager app Focuss --platform darwin --asar true --icon ./app/img/icons/icon@5x.icns --out ./dist --overwrite"
+  },
+  "author": "Bhargav R. Patel",
   "license": "ISC",
-  "dependencies": {
-    "electron": "^1.4.13",
-    "node-cmd": "^1.2.0"
-  }
+  "bugs": {
+    "url": "https://github.com/bhargavrpatel/focuss/issues"
+  },
+  "homepage": "https://github.com/bhargavrpatel/focuss#readme",
+  "devDependencies": {
+    "asar": "^0.12.4",
+    "electron-builder": "^10.15.1",
+    "electron-packager": "^8.4.0",
+    "electron-prebuilt": "^1.4.13"
+  },
+  "dependencies": {}
 }

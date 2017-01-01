@@ -18,7 +18,7 @@ function createWindow () {
     resizable: false,
     movable: false,
     icon: url.format({
-      pathname: path.join(__dirname, 'app/img/apple.ico'),
+      pathname: path.join(__dirname, './img/apple.ico'),
       protocol: 'file:',
       slashes: true
     })
@@ -30,7 +30,7 @@ function createWindow () {
 
   // and load the index.html of the app.
   win.loadURL(url.format({
-    pathname: path.join(__dirname, 'app/index.html'),
+    pathname: path.join(__dirname, './index.html'),
     protocol: 'file:',
     slashes: true
   }))
