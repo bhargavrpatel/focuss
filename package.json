@@ -4,9 +4,13 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+    "start": "echo \"Starting Electron application...\" && ./node_modules/.bin/electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^1.4.13"
+  }
 }
