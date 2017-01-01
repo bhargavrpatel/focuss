@@ -83,7 +83,7 @@
 					info.style.opacity = 1;
 					tagline.innerHTML = 'End';
 					btn.dataset.started = "true";
-					btn.style.backgroundImage = "url('img/apple-solid.png')";
+					btn.style.backgroundImage = "url('./img/apple-solid.png')";
 					info.style.animation = "fadein 1s";
 					ipcRenderer.send('state-messages', 'sessionStarted');
 
@@ -98,7 +98,7 @@
 					info.style.opacity = 0;
 					tagline.innerHTML = 'Start';
 					btn.dataset.started = "false";
-					btn.style.backgroundImage = "url('img/apple.png')";
+					btn.style.backgroundImage = "url('./img/apple.png')";
 					info.style.animation = "fadeout 0.3s";
 
 					ipcRenderer.send('state-messages', 'sessionEnded');
