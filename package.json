@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "electron": "^1.4.13"
+    "electron": "^1.4.13",
+    "node-cmd": "^1.2.0"
   }
 }
