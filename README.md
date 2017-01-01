@@ -1,10 +1,12 @@
 # Focuss
 
-
 Focus by disabling internet in Pomodoro intervals.
 
 ### Usage
 Simply start the application and click on the apple icon. For the next 20 minutes, you will no longer have access to the internet. An operating system speficic notifcation will be given upon the completion of the 20 minutes; you will have internet again.
+
+### Building
+Clone the repository and run `npm install` to install the dependencies. Then run `npm start` to launch the application.
 
 ### Contributing
 Currently, I am planning on using this project to better learn app development. As such, I would be open for any feedback that is provided via the issues tab, but would like to do all of the coding. However, please feel free to make your own forks and use them at your leisure.
