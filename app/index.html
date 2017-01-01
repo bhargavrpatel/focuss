@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Generics -->
+		<meta charset="UTF-8">
+		<title>Focuss</title>
+
+		<!-- Fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Lato:300,400|Open+Sans:300,400" rel="stylesheet">
+
+		<!-- CSS -->
+		<link href="css/reset.css" rel="stylesheet">
+		<link href="css/main.css" rel="stylesheet">
+
+		<!-- Favicons -->
+		<link rel="icon" href="img/apple.png">
+
+		<!-- Javascript -->
+		<script src="js/common.js"></script>
+
+	</head>
+
+	<body>
+		<div id="app">
+			<header>
+				<div class="controls">
+					<input type="button" id="close" onclick="closeApp()"/>
+					<input type="button" id="minimize" onclick="minimizeApp()"/>
+				</div>
+			</header>
+			<section>
+				<h1>Get Focussed</h1>
+				<span id="tagline">Start</span>
+				<span> by clicking on the apple.</span>
+				<div class="session">
+					<input type="button" id="session-toggle" onclick="sessionToggle()" data-started="false"/><br />
+					<div id="info">
+						<span id="minutes"></span>
+						<span>minutes left.</span>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<script type="text/javascript">
+			var interval = null; // Used to clear timer.
+			var sessionDuration = 1;
+			var timeLeft = sessionDuration;
+
+			var btn     = document.getElementById('session-toggle');
+			var info 	= document.getElementById('info');
+			var minutes = document.getElementById('minutes');
+			var tagline = document.getElementById('tagline');
+
+			minutes.innerHTML = sessionDuration;
+
+			function sessionEndNotification() {
+				var notif = new window.Notification('Session Completed', {
+				  body: `Your ${sessionDuration} minutes session completed. Congrats!`
+				});
+
+				notif.onclick = function () {
+				  ipcRenderer.send('state-messages', 'focus')
+				}
+			}
+
+			function decrementTime() {
+				timeLeft -= 1;
+				console.log(`Time left in session: ${timeLeft}.`)
+				if (timeLeft === 0) {
+					// End session
+					sessionToggle();
+					sessionEndNotification();
+					clearInterval(interval);
+					return;
+				}
+
+				// Calculate progress precentage taskbar progress
+				percentCompleted = (1 - (timeLeft/sessionDuration));
+				// TODO: Use webcontents instead
+				ipcRenderer.send('state-messages', `progress-${percentCompleted}`);
+
+				minutes.innerHTML = timeLeft;
+			}
+
+			function sessionToggle() {
+				sessionState = btn.dataset.started;
+
+				if (sessionState === 'false') {
+					// Start a session.
+
+					info.style.opacity = 1;
+					tagline.innerHTML = 'End';
+					btn.dataset.started = "true";
+					btn.style.backgroundImage = "url('img/apple-solid.png')";
+					info.style.animation = "fadein 1s";
+					ipcRenderer.send('state-messages', 'sessionStarted');
+
+					if (timeLeft !== 0) {
+						interval = setInterval(decrementTime, minToMiliseconds(1));
+					}
+
+				} else {
+					// End a session
+
+					info.style.opacity = 0;
+					tagline.innerHTML = 'Start';
+					btn.dataset.started = "false";
+					btn.style.backgroundImage = "url('img/apple.png')";
+					info.style.animation = "fadeout 0.3s";
+
+					ipcRenderer.send('state-messages', 'sessionEnded');
+				}
+			};
+
+			
+		</script>
+	</body>
+</html>
