@@ -50,14 +50,14 @@ app.on('ready', createWindow)
 
 ipcMain.on('state-messages', (event, arg) => {
   switch (arg) {
-    case 'close':
-      console.log('Closing app...');
-      app.quit();
-      break;
-    case 'minimize':
-      console.log('Minimizing app...');
-      win.minimize();
-      break;
+    // case 'close':
+    //   console.log('Closing app...');
+    //   app.quit();
+    //   break;
+    // case 'minimize':
+    //   console.log('Minimizing app...');
+    //   win.minimize();
+    //   break;
     case 'sessionStarted':
       console.log('A session started...');
       win.setProgressBar(0);
