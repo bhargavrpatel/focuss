@@ -1,7 +1,7 @@
 const {app, BrowserWindow, ipcMain}  = require('electron')
 const path = require('path')
 const url = require('url')
-
+const {buildMenu} = require('./mainmenu')
 
 let win
 
@@ -40,7 +40,12 @@ function createWindow () {
     console.log(win.getSize());
   });
 
-  win.once('ready-to-show', () => { win.show(); })
+  buildMenu(win);
+  win.once('ready-to-show', () => {
+    win.show();
+    buildMenu(win, start=true, end=false);
+    win.webContents.openDevTools()
+  });
 }
 
 app.on('ready', createWindow)
@@ -58,12 +63,12 @@ ipcMain.on('state-messages', (event, arg) => {
     case 'sessionStarted':
       console.log('A session started...');
       win.setProgressBar(0);
+      buildMenu(win, start=false, end=true);
       break;
     case 'sessionEnded':
       console.log('A session ended...');
       win.setProgressBar(-1);
-      // win.show();
-      // win.focus();
+      buildMenu(win, start=true, end=false);
       break;
     case 'focus':
       console.log('Session completed, focusing...');

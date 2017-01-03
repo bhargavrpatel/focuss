@@ -105,7 +105,9 @@
 				}
 			};
 
-			
+			ipcRenderer.on('menu-event', (event, arg) => {
+				sessionToggle();
+			})
 		</script>
 	</body>
 </html>
