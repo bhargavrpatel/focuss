@@ -11,7 +11,6 @@ function createWindow () {
   win = new BrowserWindow({
     width: 210,
     height: 240,
-    // frame: false,
     titleBarStyle: 'hidden',
     maximizable: false,
     resizable: false,
@@ -30,8 +29,7 @@ function createWindow () {
     slashes: true
   }))
 
-  // Open the DevTools.
-  // win.webContents.openDevTools()
+
   win.on('closed', () => {
     win = null
   });
@@ -44,7 +42,6 @@ function createWindow () {
   win.once('ready-to-show', () => {
     win.show();
     buildMenu(win, start=true, end=false);
-    win.webContents.openDevTools()
   });
 }
 
@@ -52,14 +49,6 @@ app.on('ready', createWindow)
 
 ipcMain.on('state-messages', (event, arg) => {
   switch (arg) {
-    // case 'close':
-    //   console.log('Closing app...');
-    //   app.quit();
-    //   break;
-    // case 'minimize':
-    //   console.log('Minimizing app...');
-    //   win.minimize();
-    //   break;
     case 'sessionStarted':
       console.log('A session started...');
       win.setProgressBar(0);
