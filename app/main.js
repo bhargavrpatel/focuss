@@ -11,22 +11,17 @@ function createWindow () {
   win = new BrowserWindow({
     width: 210,
     height: 240,
-    // width: 400,
-    // height: 300,
-    frame: false,
+    // frame: false,
+    titleBarStyle: 'hidden',
     maximizable: false,
     resizable: false,
-    movable: false,
+    show: false,
     icon: url.format({
       pathname: path.join(__dirname, './img/apple.ico'),
       protocol: 'file:',
       slashes: true
     })
   });
-
-  // win = new BrowserWindow({
-  //   frame: false,
-  // });
 
   // and load the index.html of the app.
   win.loadURL(url.format({
@@ -44,6 +39,8 @@ function createWindow () {
   win.on('resize', () => {
     console.log(win.getSize());
   });
+
+  win.once('ready-to-show', () => { win.show(); })
 }
 
 app.on('ready', createWindow)
@@ -88,12 +85,8 @@ ipcMain.on('state-messages', (event, arg) => {
   }
 });
 
-// Quit when all windows are closed.
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-});
+// Quit the app when windows are closed, even on OS X
+app.on('window-all-closed', () => { app.quit() });
 
 app.on('activate', () => {
   if (win === null) {
