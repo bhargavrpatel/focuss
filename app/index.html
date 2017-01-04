@@ -37,71 +37,71 @@
 		</div>
 
 		<script type="text/javascript">
-			var interval = null; // Used to clear timer.
-			var sessionDuration = 20;
-			var timeLeft = sessionDuration;
+      let interval = null; // Used to clear timer.
+      let sessionDuration = 20;
+      let timeLeft = sessionDuration;
 
-			var btn     = document.getElementById('session-toggle');
-			var info 	= document.getElementById('info');
-			var minutes = document.getElementById('minutes');
-			var tagline = document.getElementById('tagline');
+      let btn     = document.getElementById('session-toggle');
+      let info  = document.getElementById('info');
+      let minutes = document.getElementById('minutes');
+      let tagline = document.getElementById('tagline');
 
-			minutes.innerHTML = sessionDuration;
+      minutes.innerHTML = sessionDuration;
 
-			function decrementTime() {
-				timeLeft -= 1;
-				console.log(`Time left in session: ${timeLeft}.`)
-				if (timeLeft === 0) {
-					// End session
-					sessionToggle();
-					sessionEndNotification();
-					clearInterval(interval);
-					return;
-				}
+      function decrementTime() {
+        timeLeft -= 1;
+        console.log(`Time left in session: ${timeLeft}.`)
+        if (timeLeft === 0) {
+          // End session
+          sessionToggle();
+          sessionEndNotification();
+          clearInterval(interval);
+          return;
+        }
 
-				// Calculate progress precentage taskbar progress
-				percentCompleted = (1 - (timeLeft/sessionDuration));
-				// TODO: Use webcontents instead
-				ipcRenderer.send('state-messages', `progress-${percentCompleted}`);
+        // Calculate progress precentage taskbar progress
+        percentCompleted = (1 - (timeLeft/sessionDuration));
+        // TODO: Use webcontents instead
+        ipcRenderer.send('state-messages', `progress-${percentCompleted}`);
 
-				minutes.innerHTML = timeLeft;
-			}
+        minutes.innerHTML = timeLeft;
+      }
 
-			function sessionToggle() {
-				sessionState = btn.dataset.started;
+      function sessionToggle() {
+        sessionState = btn.dataset.started;
 
-				if (sessionState === 'false') {
-					// Start a session.
+        if (sessionState === 'false') {
+          // Start a session.
 
-					disableInternet();
-					info.style.opacity = 1;
-					tagline.innerHTML = 'End';
-					btn.dataset.started = "true";
-					btn.style.backgroundImage = "url('./img/apple-solid.png')";
-					info.style.animation = "fadein 1s";
-					ipcRenderer.send('state-messages', 'sessionStarted');
+          disableInternet();
+          info.style.opacity = 1;
+          tagline.innerHTML = 'End';
+          btn.dataset.started = "true";
+          btn.style.backgroundImage = "url('./img/apple-solid.png')";
+          info.style.animation = "fadein 1s";
+          ipcRenderer.send('state-messages', 'sessionStarted');
 
-					if (timeLeft !== 0) {
-						interval = setInterval(decrementTime, minToMiliseconds(1));
-					}
+          if (timeLeft !== 0) {
+            interval = setInterval(decrementTime, minToMiliseconds(1));
+          }
 
-				} else {
-					// End a session
+        } else {
+          // End a session
 
-					enableInternet();
-					info.style.opacity = 0;
-					tagline.innerHTML = 'Start';
-					btn.dataset.started = "false";
-					btn.style.backgroundImage = "url('./img/apple.png')";
-					info.style.animation = "fadeout 0.3s";
+          enableInternet();
+          info.style.opacity = 0;
+          tagline.innerHTML = 'Start';
+          btn.dataset.started = "false";
+          btn.style.backgroundImage = "url('./img/apple.png')";
+          info.style.animation = "fadeout 0.3s";
 
-					ipcRenderer.send('state-messages', 'sessionEnded');
-				}
-			};
+          ipcRenderer.send('state-messages', 'sessionEnded');
+        }
+      };
 
-			ipcRenderer.on('menu-event', (event, arg) => {
-				sessionToggle();
-			})
+      ipcRenderer.on('menu-event', (event, arg) => {
+        sessionToggle();
+      })
 		</script>
 	</body>
 </html>
