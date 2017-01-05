@@ -41,17 +41,26 @@ function runInternetCommands(enable) {
 
   if (platform === 'darwin') {
     if (enable) {
-      commands = ['networksetup -setairportpower en0 on'];
+      commands = ['sudo ifconfig en0 up',
+                  'networksetup -setairportpower en0 on'];
     } else {
-      commands = ['networksetup -setairportpower en0 off'];
+      commands = ['sudo ifconfig en0 down',
+                  'networksetup -setairportpower en0 off'];
     }
   } else if (platform === 'win32') {
-    // TODO: Add command for Windows and test on PC.
-    return;
+    if (enable) {
+      commands = ['ipconfig/renew'];
+    } else {
+      commands = ['ipconfig/release'];
+    }
   } else {
-    // TODO: Research how to run command for Linux
-    return;
+    if (enable) {
+      commands = ['nmcli nm enable true'];
+    } else {
+      commands = ['nmcli nm enable false'];
+    }
   }
+
   commands.forEach((command) => {
     cmd.run(command);
   });
