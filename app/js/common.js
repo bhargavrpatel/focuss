@@ -10,13 +10,13 @@ const { ipcRenderer } = require('electron');
 const platform = require('os').platform();
 
 
-// function closeApp() {
-//   ipcRenderer.send('state-messages', 'close');
-// }
+function closeApp() {
+  ipcRenderer.send('state-messages', 'close');
+}
 
-// function minimizeApp() {
-//   ipcRenderer.send('state-messages', 'minimize');
-// }
+function minimizeApp() {
+  ipcRenderer.send('state-messages', 'minimize');
+}
 
 function secToMiliseconds(seconds) {
   return seconds * 1000;
